@@ -7,6 +7,8 @@
           router-link(to="/template") Template
         li
           router-link(to="/golden-blockchain") Golden Blockchain
+        li
+          router-link(to="/pixijsdemo") PixiJS Demo
 </template>
 
 <script>
@@ -26,7 +28,7 @@ export default {
 
   #app
     nav
-      position: absolute
+      position: fixed
       bottom: 10px
       left: 10px
 
