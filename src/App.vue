@@ -15,19 +15,19 @@ export default {
 }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-    margin: 0;
-    padding: 0;
+<style lang="sass" rel="stylesheet/sass">
+  body
+    margin: 0
+    padding: 0
+    font-family: 'Avenir', Helvetica, Arial, sans-serif
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    color: #2c3e50
 
-    nav {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-    }
-  }
+  #app
+    nav
+      position: absolute
+      bottom: 10px
+      left: 10px
+
 </style>
