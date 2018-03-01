@@ -1,6 +1,7 @@
 <template lang="pug">
   div(id="golden-blockchain")
     canvas(ref="canvas")
+    img(ref="img")
 </template>
 
 <script>
@@ -15,28 +16,33 @@ class Point {
 function createPointNode (ctx, pt, nodes, depth, spread, ptArray) {
   for (var i = 0; i < nodes; i++) {
     ctx.moveTo(pt.x, pt.y)
-    var r = spread + Math.random() * spread * 0.8
-    var shift = i / nodes + Math.random() * 0.1
-    var x = r * 1.6 * Math.cos(2 * Math.PI * shift)
+    var r = spread + Math.random() * spread * 0.7
+    var shift = i / nodes + Math.random() * 0.2
+    var x = r * Math.cos(2 * Math.PI * shift)
     var y = r * Math.sin(2 * Math.PI * shift)
     var nPt = new Point(pt.x + x, pt.y + y)
     ptArray.push(nPt)
     ctx.lineTo(nPt.x, nPt.y)
 
     if (depth > 0) {
-      createPointNode(ctx, nPt, 3, depth - 1, spread * 0.8, ptArray)
+      createPointNode(ctx, nPt, Math.ceil(Math.random() * 5), depth - 1, spread * 0.7, ptArray)
     }
   }
   depth--
 }
 
 function createNodeCircles (ctx, ptArray) {
-
+  for (var i = 0; i < ptArray.length; i++) {
+    var pt = ptArray[i]
+    ctx.moveTo(pt.x, pt.y)
+    ctx.arc(pt.x, pt.y, 2, 0, 2 * Math.PI)
+  }
 }
 
 export default {
   mounted () {
     const canvas = this.$refs.canvas
+    const img = this.$refs.img
     const w = canvas.offsetWidth << 1
     const h = canvas.offsetHeight << 1
 
@@ -58,12 +64,19 @@ export default {
     var ptArray = [new Point(w >> 1, h >> 1)]
 
     ctx.beginPath()
-    var depth = 3
-    createPointNode(ctx, ptArray[0], 3, depth, 200, ptArray)
+    var depth = 9
+    var spread = 1200
+    createPointNode(ctx, ptArray[0], 3, depth, spread, ptArray)
     ctx.lineWidth = 1
     ctx.strokeStyle = gradient2
-    ctx.strokeStyle = '#ff0000'
     ctx.stroke()
+    ctx.closePath()
+
+    ctx.fillStyle = gradient2
+    createNodeCircles(ctx, ptArray)
+    ctx.fill()
+
+    img.src = canvas.toDataURL('image/png')
   }
 }
 </script>
@@ -71,10 +84,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  lang="sass" rel="stylesheet/sass" scoped>
   div#golden-blockchain
-    canvas
+    canvas, img
       position: absolute
       top: 0
       left: 0
-      width: 800px
-      height: 400px
+      width: 1600px
+      height: 900px
 </style>
