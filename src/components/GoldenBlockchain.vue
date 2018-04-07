@@ -2,6 +2,12 @@
   div(id="golden-blockchain")
     canvas(ref="canvas")
     img(ref="img")
+
+    div(class="controls")
+      span(class="label")
+        != "Colours: "
+        input(type="color" value="#E7A10E")
+        input(type="color" value="#F5D123")
 </template>
 
 <script>
@@ -95,4 +101,17 @@ export default {
       left: 0
       width: 1600px
       height: 900px
+    .controls
+      display: none
+      position: fixed
+      top: 10px
+      left: 10px
+      background: rgba(255, 255, 255, 0.8)
+      .label
+        margin: 6px
+        input
+          margin: 0
+          padding: 0
+          border: none
+          width: 20px
 </style>
